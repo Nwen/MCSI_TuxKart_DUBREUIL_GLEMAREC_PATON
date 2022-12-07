@@ -1,0 +1,14 @@
+SuperTuxKart-1.3-src/*
+Sound/*
+__pycache__/
+.vscode
+bluetooth.py
+microphone.py
+midi.py
+output.wav
+Star_Wars__Imperial_March.mid
+STK_input_client_piano.py
+STK_input_server2.py
+SuperTuxKart-1.3-src.tar.xz
+SuperTuxKart-1.3-src.zip
+testOSC.py
