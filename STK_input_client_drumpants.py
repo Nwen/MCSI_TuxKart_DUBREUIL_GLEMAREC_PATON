@@ -96,12 +96,6 @@ def input_main(device_id=None):
                 elif(e.status == 128 and e.data1 == 55): #Release 
                     data = b'R_FIRE'
                     client_socket.sendto(data, address)
-                elif(e.status == 144 and e.data1 == 53): #Press Channel D mode C1 single pied   
-                    data = b'P_PAUSE'
-                    client_socket.sendto(data, address)
-                elif(e.status == 128 and e.data1 == 53): #Release 
-                    data = b'R_PAUSE'
-                    client_socket.sendto(data, address)
                 elif(e.status == 144 and e.data1 == 36): #Press Channel A mode C1 double pied 1
                     data = b'P_LEFT'
                     client_socket.sendto(data, address)
@@ -127,13 +121,20 @@ def input_main(device_id=None):
                 elif(e.status == 128 and e.data1 == 38): #Relesae Channel B mode C1 double pied 1
                     data = b'R_NITRO'
                     client_socket.sendto(data, address)
+                elif(e.status == 128 and e.data1 == 45): #rELEASE Channel B mode C1 double pied 2
+                    data = b'R_SKIDDING'
+                    client_socket.sendto(data, address)
                 elif(e.status == 144 and e.data1 == 45): #Press Channel B mode C1 double pied 2
                     data = b'P_SKIDDING'
                     client_socket.sendto(data, address)
                     playsound('sound/kick.wav', False)
-                elif(e.status == 128 and e.data1 == 45): #Release Channel B mode C1 double pied 2
-                    data = b'R_SKIDDING'
+                elif(e.status == 144 and e.data1 == 53): #Press Channel B mode C1 double pied 2
+                    data = b'P_RESCUE'
                     client_socket.sendto(data, address)
+                    playsound('sound/error.mp3', False)
+                    data = b'R_RESCUE'
+                    client_socket.sendto(data, address)
+
                 
         if i.poll():
             midi_events = i.read(10)
@@ -151,7 +152,7 @@ osc = OSCThreadServer(default_handler=dump)  # See sources for all the arguments
 # You can also use an \*nix socket path here
 # sock = osc.listen(address='0.0.0.0', port=8000, default=True)
 
-input_main(1)
+input_main(2)
 
 sleep(1000)
 osc.stop()  # Stop the default socket

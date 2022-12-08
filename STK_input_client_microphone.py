@@ -38,7 +38,7 @@ import audioop
 
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
-CHANNELS = 2
+CHANNELS = 1
 RATE = 44100
 RECORD_SECONDS = 5
 WAVE_OUTPUT_FILENAME = "output.wav"
@@ -62,7 +62,7 @@ going = False
 while True:
     data = stream.read(CHUNK)
     rms = audioop.rms(data, 2)    # here's where you calculate the volume
-    
+    print(rms)
     if(rms > 3000):
         data = b'P_ACCELERATE'
         client_socket.sendto(data, address)
