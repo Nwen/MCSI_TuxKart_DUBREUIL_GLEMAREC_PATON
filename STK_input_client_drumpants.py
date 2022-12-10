@@ -2,6 +2,10 @@
 #Michael ORTEGA - 09 jan 2018
 
 ###############################################################################
+
+# DUBREUIL Quentin, GLEMAREC Loic, PATON Gwendal
+# Client qui gère les input midi du drumpants (à connecter en filaire, bluetooth indisponible)
+
 ## Global libs
 import socket
 import sys
@@ -36,8 +40,6 @@ def dump(address, *values):
         )
     ))
 
-
-#l'enfer commence ici
 def print_device_info():
     pygame.midi.init()
     _print_device_info()
@@ -85,50 +87,32 @@ def input_main(device_id=None):
         for e in events:
             if e.type in [pg.QUIT]:
                 going = False
-                print("DED")
+                print("DEAD")
                 exit()
             if e.type in [pygame.midi.MIDIIN]:
                 print(e)
-                if(e.status == 144 and e.data1 == 55): #Press Channel C mode C1 single pied   
+                if(e.status == 144 and e.data1 == 55): #Press Channel C mode C1 single   
                     data = b'P_FIRE'
                     client_socket.sendto(data, address)
                     playsound('sound/clap.wav', False)
-                elif(e.status == 128 and e.data1 == 55): #Release 
+                elif(e.status == 128 and e.data1 == 55): #Release Channel C mode C1 single  
                     data = b'R_FIRE'
                     client_socket.sendto(data, address)
-                elif(e.status == 144 and e.data1 == 36): #Press Channel A mode C1 double pied 1
-                    data = b'P_LEFT'
-                    client_socket.sendto(data, address)
-                    sleep(0.3)
-                    data = b'R_LEFT'
-                    client_socket.sendto(data, address)
-                # elif(e.status == 128 and e.data1 == 36): #Release Channel A mode C1 double pied 1
-                #     data = b'R_LEFT'
-                #     client_socket.sendto(data, address)
-                elif(e.status == 144 and e.data1 == 43): #Press Channel A mode C1 double pied 2   
-                    data = b'P_RIGHT'
-                    client_socket.sendto(data, address)
-                    sleep(0.3)
-                    data = b'R_RIGHT'
-                    client_socket.sendto(data, address)
-                # elif(e.status == 128 and e.data1 == 43): #Release Channel A mode C1 double pied 2   
-                #     data = b'R_RIGHT'
-                #     client_socket.sendto(data, address)
-                elif(e.status == 144 and e.data1 == 38): #Press Channel B mode C1 double pied 1
+                elif(e.status == 144 and e.data1 == 38): #Press Channel B mode C1 double 1
                     data = b'P_NITRO'
                     client_socket.sendto(data, address)
                     playsound('sound/snare.wav', False)
-                elif(e.status == 128 and e.data1 == 38): #Relesae Channel B mode C1 double pied 1
+                elif(e.status == 128 and e.data1 == 38): #Release Channel B mode C1 double 1
                     data = b'R_NITRO'
                     client_socket.sendto(data, address)
-                elif(e.status == 128 and e.data1 == 45): #rELEASE Channel B mode C1 double pied 2
+                elif(e.status == 128 and e.data1 == 45): #Release Channel B mode C1 double 2
                     data = b'R_SKIDDING'
                     client_socket.sendto(data, address)
-                elif(e.status == 144 and e.data1 == 45): #Press Channel B mode C1 double pied 2
+                elif(e.status == 144 and e.data1 == 45): #Press Channel B mode C1 double 2
                     data = b'P_SKIDDING'
                     client_socket.sendto(data, address)
                     playsound('sound/kick.wav', False)
-                elif(e.status == 144 and e.data1 == 53): #Press Channel B mode C1 double pied 2
+                elif(e.status == 144 and e.data1 == 53): #Press Channel D mode C1 single
                     data = b'P_RESCUE'
                     client_socket.sendto(data, address)
                     playsound('sound/error.mp3', False)

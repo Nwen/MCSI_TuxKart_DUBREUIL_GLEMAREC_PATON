@@ -2,6 +2,10 @@
 #Michael ORTEGA - 09 jan 2018
 
 ###############################################################################
+
+# DUBREUIL Quentin, GLEMAREC Loic, PATON Gwendal
+# Client qui gère le microphone, on accèlere à partir d'un certain volume
+
 ## Global libs
 import socket
 import sys
@@ -38,7 +42,7 @@ import audioop
 
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
-CHANNELS = 1
+CHANNELS = 1 # A changer pour changer quel micro est utilisé
 RATE = 44100
 RECORD_SECONDS = 5
 WAVE_OUTPUT_FILENAME = "output.wav"
@@ -51,18 +55,16 @@ stream = p.open(format=FORMAT,
                 input=True,
                 frames_per_buffer=CHUNK)
 
-#for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
-
-
 osc = OSCThreadServer(default_handler=dump)  # See sources for all the arguments
 
 # You can also use an \*nix socket path here
 #sock = osc.listen(address='0.0.0.0', port=8000, default=True)
+
 going = False
 while True:
     data = stream.read(CHUNK)
     rms = audioop.rms(data, 2)    # here's where you calculate the volume
-    print(rms)
+    #print(rms)
     if(rms > 3000):
         data = b'P_ACCELERATE'
         client_socket.sendto(data, address)
